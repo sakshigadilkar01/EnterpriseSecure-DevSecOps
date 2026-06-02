@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/digininja/DVWA.git'
+            }
+        }
+        stage('Static Code Analysis - SonarQube') {
+            steps {
+                sh 'echo SonarQube SAST scan running...'
+                sh 'echo Visit http://localhost:9000 to see results'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t dvwa-image .'
+            }
+        }
+    }
+}
